@@ -1,0 +1,484 @@
+  StreamBuilder<QuerySnapshot>(
+              stream: users,
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text(
+                    'Something went wrong!',
+                    style: TextStyle(color: textColor(context)),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text(
+                    'Loading..',
+                    style: TextStyle(color: textColor(context)),
+                  );
+                }
+                final data = snapshot.requireData;
+                return Flexible(
+                  // height: screenHeight,
+                  child: ListView.builder(
+                      itemCount: data.size,
+                      itemBuilder: (context, index) {
+                        // bool likeColor = false;
+                        // bool canDelete = false;
+                        // QueryDocumentSnapshot mydata = data.docs.elementAt(index);
+                        // List list = [];
+                        // List keys = [];
+                        // List images = ['image1','image2','image3','image4'];
+                        // Map  map = (mydata.data() as Map);
+                        // map.forEach((key, value) {list.add(value);keys.add(key);});
+                        // int imageCount = 0;
+                        // for(int i=0;i<list.length;i++){
+                        //   if(keys[i] == 'image1' ||keys[i] == 'image2' ||keys[i] == 'image3' ||keys[i] == 'image4' ){
+                        //     imageCount+=1;
+                        //   }
+                        //   if(list[i] == 'liked'){
+                        //     likeColor = true;
+                        //   }
+                        //   if(list[i] == currentUser){
+                        //     canDelete = true;
+                        //   }
+                        // }
+                        // final Stream<QuerySnapshot> allComments =
+                        //     FirebaseFirestore.instance
+                        //         .collection('posts')
+                        //         .doc(widget.Campus)
+                        //         .collection('posts')
+                        //         .doc(data.docs.elementAt(index).id.toString())
+                        //         .collection('comments')
+                        //         .snapshots();
+
+                        return Neumorphic(
+                            margin: EdgeInsets.only(top: 5, bottom: 5),
+                            style: NeumorphicStyle(
+                              shape: NeumorphicShape.flat,
+                              boxShape: NeumorphicBoxShape.roundRect(
+                                  BorderRadius.circular(12)),
+                              depth: 0,
+                              lightSource: LightSource.topLeft,
+                              //                    color: Colors.grey
+                            ),
+                            child: Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Padding(
+                                  //   padding: EdgeInsets.all(8),
+                                  //   child: Row(
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.spaceBetween,
+                                  //     children: [
+                                  //       Text(
+                                  //         '${data.docs[index]['time']}',
+                                  //         style: TextStyle(
+                                  //             fontWeight: FontWeight.bold,
+                                  //             fontSize: 14,
+                                  //             color: textColor(context)),
+                                  //       ),
+                                  //       Text(
+                                  //         '${data.docs[index]['date']}',
+                                  //         style: TextStyle(
+                                  //             fontWeight: FontWeight.bold,
+                                  //             fontSize: 14,
+                                  //             color: textColor(context)),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+
+                                  // ListView(
+                                  //  padding: EdgeInsets.only(top: 16,bottom: 16),
+                                  //  scrollDirection: Axis.horizontal,
+                                  //  children: [
+                                  InkWell(
+                                    child: Center(
+                                      // padding: EdgeInsets.only(left: 5,right: 5),
+                                      child: Image.network(
+                                        '${data.docs[index]['imageUrl']}',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Dialog(
+                                              backgroundColor:
+                                                  NeumorphicTheme.of(context)!
+                                                          .isUsingDark
+                                                      ? Colors.black12
+                                                      : Colors.white,
+                                              insetPadding: EdgeInsets.all(10),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          40)),
+                                              elevation: 16,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.all(8),
+                                                    child: Text(
+                                                      '${data.docs[index]['category']}',
+                                                      style: TextStyle(
+                                                        color:
+                                                            titleColor(context),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                  // Padding(
+                                                  //   padding: EdgeInsets.only(
+                                                  //       left: 5, right: 5),
+                                                  //   child: ImageSlideshow(
+                                                  //     width: screenWidth,
+                                                  //     height:
+                                                  //         (screenHeight / 2),
+                                                  //     indicatorBackgroundColor:
+                                                  //         Colors.green.shade200,
+                                                  //     indicatorColor:
+                                                  //         Colors.green.shade700,
+                                                  //     initialPage: 0,
+                                                  //     children: [
+                                                  //       for (int i = 0;
+                                                  //           i < imageCount;
+                                                  //           i++)
+                                                  //         Image.network(
+                                                  //           '${data.docs[index][images[i]]}',
+                                                  //           fit: BoxFit
+                                                  //               .scaleDown,
+                                                  //         ),
+                                                  //     ],
+                                                  //   ),
+                                                  // ),
+                                                  Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                      child: TextButton(
+                                                          child: Text('BACK',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .green
+                                                                      .shade700,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          }))
+                                                ],
+                                              ),
+                                            );
+                                          });
+                                    },
+                                  ),
+                                  Divider(
+                                    color: Colors.white,
+                                    indent: 8,
+                                    endIndent: 8,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 8,
+                                      right: 8,
+                                    ),
+                                    child: Text(
+                                      '${data.docs[index]['name']}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                          color: textColor(context)),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 8, right: 8, bottom: 2),
+                                    child: Text(
+                                      '${data.docs[index]['price']}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13,
+                                          color: textColor(context)),
+                                    ),
+                                  ),
+                                  // ]
+                                  // ),
+                                  // Padding(
+                                  //   padding: EdgeInsets.only(
+                                  //     left: 8,
+                                  //     right: 18,
+                                  //   ),
+                                  //   child: Row(
+                                  //     // mainAxisAlignment: MainAxisAlignment.end,
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.spaceBetween,
+                                  //     children: [
+                                  //       Row(
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.start,
+                                  //         children: [
+                                  //           IconButton(
+                                  //             icon: likeColor
+                                  //                 ? Image.asset(
+                                  //                     'images/like.png')
+                                  //                 : Image.asset(
+                                  //                     'images/unlike.png'),
+                                  //             hoverColor: Colors.lightBlue,
+                                  //             onPressed: () {
+                                  //               DocumentReference
+                                  //                   likeReference =
+                                  //                   FirebaseFirestore.instance
+                                  //                       .collection('posts')
+                                  //                       .doc(widget.Campus)
+                                  //                       .collection('posts')
+                                  //                       .doc(data.docs
+                                  //                           .elementAt(index)
+                                  //                           .id
+                                  //                           .toString());
+                                  //               int currentLikes =
+                                  //                   data.docs[index]['like'];
+                                  //               int updateLikes = 0;
+                                  //               setState(() {
+                                  //                 if (!likeColor) {
+                                  //                   updateLikes =
+                                  //                       currentLikes + 1;
+                                  //                   var dbTimeKey =
+                                  //                       new DateTime.now();
+                                  //                   var formatDate =
+                                  //                       new DateFormat(
+                                  //                           'MMM d,yyyy');
+                                  //                   var formatTime =
+                                  //                       new DateFormat(
+                                  //                           'EEEE,hh:mm aaa');
+                                  //                   String date = formatDate
+                                  //                       .format(dbTimeKey);
+                                  //                   String time = formatTime
+                                  //                       .format(dbTimeKey);
+                                  //
+                                  //                   DocumentReference post =
+                                  //                       FirebaseFirestore
+                                  //                           .instance
+                                  //                           .collection('posts')
+                                  //                           .doc(widget.Campus)
+                                  //                           .collection('posts')
+                                  //                           .doc(data.docs
+                                  //                               .elementAt(
+                                  //                                   index)
+                                  //                               .id
+                                  //                               .toString())
+                                  //                           .collection('likes')
+                                  //                           .doc(currentUser);
+                                  //                   post
+                                  //                       .set({
+                                  //                         'date': date,
+                                  //                         'time': time
+                                  //                       })
+                                  //                       .then((value) =>
+                                  //                           print('Post added'))
+                                  //                       .catchError((error) =>
+                                  //                           print(
+                                  //                               'Failed to send post $error'));
+                                  //                   likeReference.update({
+                                  //                     'like': updateLikes,
+                                  //                     currentUser: 'liked'
+                                  //                   }).then((value) {
+                                  //                     currentLikes = data
+                                  //                         .docs[index]['like'];
+                                  //                     print('current lIkes ' +
+                                  //                         data.docs[index]
+                                  //                                 ['like']
+                                  //                             .toString());
+                                  //                   });
+                                  //                 } else {
+                                  //                   updateLikes =
+                                  //                       currentLikes - 1;
+                                  //                   likeReference.update({
+                                  //                     'like': updateLikes,
+                                  //                     currentUser: 'disliked'
+                                  //                   }).then((value) {
+                                  //                     currentLikes = data
+                                  //                         .docs[index]['like'];
+                                  //                     print('current lIkes ' +
+                                  //                         currentLikes
+                                  //                             .toString());
+                                  //                   });
+                                  //                   FirebaseFirestore.instance
+                                  //                       .collection('posts')
+                                  //                       .doc(widget.Campus)
+                                  //                       .collection('posts')
+                                  //                       .doc(data.docs
+                                  //                           .elementAt(index)
+                                  //                           .id
+                                  //                           .toString())
+                                  //                       .collection('likes')
+                                  //                       .doc(currentUser)
+                                  //                       .delete();
+                                  //                 }
+                                  //               });
+                                  //             },
+                                  //           ),
+                                  //           Text(
+                                  //             '${data.docs[index]['like']}',
+                                  //             style: TextStyle(
+                                  //                 fontWeight: FontWeight.bold,
+                                  //                 fontSize: 13,
+                                  //                 color: Colors.white60),
+                                  //           )
+                                  //           // Text(likeCount.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 13,color: Colors.lightBlue.shade400),),
+                                  //         ],
+                                  //       ),
+                                  //       Row(
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.end,
+                                  //         children: [
+                                  //           Container(
+                                  //             child: canDelete
+                                  //                 ? IconButton(
+                                  //                     icon: Icon(
+                                  //                       Icons.delete,
+                                  //                       color: Colors.red,
+                                  //                     ),
+                                  //                     hoverColor:
+                                  //                         Colors.lightBlue,
+                                  //                     onPressed: () {
+                                  //                       showDialog(
+                                  //                           context: context,
+                                  //                           builder: (context) {
+                                  //                             return Dialog(
+                                  //                               shape: RoundedRectangleBorder(
+                                  //                                   borderRadius:
+                                  //                                       BorderRadius.circular(
+                                  //                                           40)),
+                                  //                               elevation: 16,
+                                  //                               child: Column(
+                                  //                                 mainAxisAlignment:
+                                  //                                     MainAxisAlignment
+                                  //                                         .spaceBetween,
+                                  //                                 mainAxisSize:
+                                  //                                     MainAxisSize
+                                  //                                         .min,
+                                  //                                 children: [
+                                  //                                   Padding(
+                                  //                                     padding:
+                                  //                                         EdgeInsets.all(
+                                  //                                             8),
+                                  //                                     child:
+                                  //                                         Text(
+                                  //                                       'You are about to delete this post\nDo you want to continue?',
+                                  //                                       style:
+                                  //                                           TextStyle(
+                                  //                                         color:
+                                  //                                             titleColor(context),
+                                  //                                         fontWeight:
+                                  //                                             FontWeight.bold,
+                                  //                                       ),
+                                  //                                       textAlign:
+                                  //                                           TextAlign.center,
+                                  //                                     ),
+                                  //                                   ),
+                                  //                                   Padding(
+                                  //                                       padding:
+                                  //                                           EdgeInsets.all(8),
+                                  //                                       child: TextButton(
+                                  //                                           child: Text('DELETE', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                                  //                                           onPressed: () {
+                                  //                                             FirebaseFirestore.instance.collection('posts').doc(widget.Campus).collection('posts').doc(data.docs.elementAt(index).id.toString()).delete();
+                                  //                                           }))
+                                  //                                 ],
+                                  //                               ),
+                                  //                             );
+                                  //                           });
+                                  //                     })
+                                  //                 : SizedBox(),
+                                  //           ),
+                                  //           IconButton(
+                                  //             icon: Icon(
+                                  //               Icons.share_rounded,
+                                  //               color: Colors.blue,
+                                  //             ),
+                                  //             hoverColor: Colors.lightBlue,
+                                  //             onPressed: () async {
+                                  //               bool loading = true;
+                                  //
+                                  //               downloadFile(
+                                  //                       '${data.docs[index]['image1']}',
+                                  //                       '${data.docs[index]['title']}',
+                                  //                       loading)
+                                  //                   .whenComplete(() {
+                                  //                 loading = false;
+                                  //               });
+                                  //             },
+                                  //           ),
+                                  //           IconButton(
+                                  //             icon: Image.asset(
+                                  //                 'images/comments.png'),
+                                  //             hoverColor: Colors.lightBlue,
+                                  //             onPressed: () {
+                                  //               Navigator.of(context).push(
+                                  //                   MaterialPageRoute(builder:
+                                  //                       (BuildContext context) {
+                                  //                 return ChatPage(
+                                  //                     queryDocumentSnapshot:
+                                  //                         queryDocumentSnapshot,
+                                  //                     position: index,
+                                  //                     Campus: widget.Campus);
+                                  //               }));
+                                  //             },
+                                  //           ),
+                                  //           StreamBuilder<QuerySnapshot>(
+                                  //               stream: allComments,
+                                  //               builder: (BuildContext context,
+                                  //                   AsyncSnapshot<QuerySnapshot>
+                                  //                       snapshot) {
+                                  //                 if (snapshot.hasError) {
+                                  //                   return Text(
+                                  //                     '...',
+                                  //                     style: TextStyle(
+                                  //                         color: textColor(
+                                  //                             context)),
+                                  //                   );
+                                  //                 }
+                                  //                 if (snapshot
+                                  //                         .connectionState ==
+                                  //                     ConnectionState.waiting) {
+                                  //                   return Text(
+                                  //                     '..',
+                                  //                     style: TextStyle(
+                                  //                         color: textColor(
+                                  //                             context)),
+                                  //                   );
+                                  //                 }
+                                  //                 final data =
+                                  //                     snapshot.requireData;
+                                  //                 return Text(
+                                  //                   data.size.toString(),
+                                  //                   style: TextStyle(
+                                  //                       fontWeight:
+                                  //                           FontWeight.bold,
+                                  //                       fontSize: 13,
+                                  //                       color: Colors.white60),
+                                  //                 );
+                                  //               }),
+                                  //         ],
+                                  //       ),
+                                  //
+                                  //       // Text(data.size.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 13,color: Colors.lightBlue.shade400),),
+                                  //     ],
+                                  //   ),
+                                  // )
+                                ],
+                              ),
+                            ));
+                      }),
+                );
+              }),

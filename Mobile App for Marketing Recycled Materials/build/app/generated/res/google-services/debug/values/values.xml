@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">759998068829-o70cpa374t4p0obokjh01o4jo5sgfrak.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">759998068829</string>
+    <string name="google_api_key" translatable="false">AIzaSyAzw-rPiGUbJ6F4Vx0_vbZbxjMiVqP4XLY</string>
+    <string name="google_app_id" translatable="false">1:759998068829:android:c6d913ffb488518c07f5b4</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAzw-rPiGUbJ6F4Vx0_vbZbxjMiVqP4XLY</string>
+    <string name="google_storage_bucket" translatable="false">recycling-a5a3e.appspot.com</string>
+    <string name="project_id" translatable="false">recycling-a5a3e</string>
+</resources>
